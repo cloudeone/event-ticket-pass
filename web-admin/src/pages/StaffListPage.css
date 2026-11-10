@@ -1,0 +1,25 @@
+.staff-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.staff-name-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.staff-name {
+  font-weight: 600;
+  color: var(--color-secondary-900, #0f172a);
+}
+
+.staff-role-badge {
+  font-size: var(--font-size-xs, 12px);
+  color: var(--color-primary-600, #4f46e5);
+}
+
+.staff-email {
+  font-size: var(--font-size-sm, 14px);
+  color: var(--color-secondary-600, #475569);
+}

@@ -1,0 +1,76 @@
+.event-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 16px);
+  margin-bottom: var(--space-4, 16px);
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  flex: 1;
+  min-width: 260px;
+}
+
+.search-input-wrapper .form-group {
+  margin-bottom: 0;
+}
+
+.status-filter-wrapper {
+  width: 180px;
+}
+
+.status-filter-wrapper .form-group {
+  margin-bottom: 0;
+}
+
+.event-info-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.event-title-link {
+  font-weight: 600;
+  color: var(--color-secondary-900, #0f172a);
+  text-decoration: none;
+}
+
+.event-title-link:hover {
+  color: var(--color-primary-600, #4f46e5);
+}
+
+.event-category-tag {
+  font-size: var(--font-size-xs, 12px);
+  color: var(--color-secondary-500, #64748b);
+}
+
+.event-schedule-cell,
+.event-venue-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--font-size-xs, 12px);
+}
+
+.event-date,
+.venue-name {
+  font-weight: 500;
+  color: var(--color-secondary-800, #1e293b);
+}
+
+.event-date-end,
+.venue-city {
+  color: var(--color-secondary-400, #94a3b8);
+}
+
+.table-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2, 8px);
+}
