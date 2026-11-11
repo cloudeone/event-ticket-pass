@@ -6,7 +6,9 @@ import EventListPage from './pages/EventListPage';
 import EventFormPage from './pages/EventFormPage';
 import EventDetailPage from './pages/EventDetailPage';
 import OrderListPage from './pages/OrderListPage';
+import ZoneManagementPage from './pages/ZoneManagementPage';
 import StaffListPage from './pages/StaffListPage';
+import SettingsPage from './pages/SettingsPage';
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
           <Route path="events/new" element={<EventFormPage />} />
           <Route path="events/:id" element={<EventDetailPage />} />
           <Route path="events/:id/edit" element={<EventFormPage />} />
+          <Route path="zones" element={<ZoneManagementPage />} />
           <Route path="orders" element={<OrderListPage />} />
           <Route path="staff" element={<StaffListPage />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

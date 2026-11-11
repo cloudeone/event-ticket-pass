@@ -2,68 +2,97 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 3px 10px;
-  border-radius: var(--radius-full, 9999px);
-  font-size: var(--font-size-xs, 12px);
-  font-weight: 500;
-  line-height: 1.2;
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.02em;
   white-space: nowrap;
-  width: fit-content;
+  line-height: 1;
+  user-select: none;
 }
 
-.status-badge-dot {
+.status-badge--sm {
+  padding: 3px 8px;
+  font-size: 11px;
+}
+
+.status-badge--md {
+  padding: 4px 10px;
+  font-size: var(--text-xs);
+}
+
+.status-badge__dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-/* Success */
-.status-badge-success {
-  background-color: #ecfdf5;
-  color: #047857;
-  border: 1px solid #a7f3d0;
+/* ── Variants ───────────────────────────────────────────── */
+/* Aktif / Live */
+.status-badge--aktif {
+  background-color: var(--status-aktif-bg);
+  color: var(--status-aktif-text);
 }
-.status-badge-success .status-badge-dot {
-  background-color: #10b981;
-}
-
-/* Warning */
-.status-badge-warning {
-  background-color: #fffbeb;
-  color: #b45309;
-  border: 1px solid #fde68a;
-}
-.status-badge-warning .status-badge-dot {
-  background-color: #f59e0b;
+.status-badge--aktif .status-badge__dot {
+  background-color: var(--status-aktif-dot);
+  box-shadow: 0 0 6px var(--status-aktif-dot);
 }
 
-/* Danger */
-.status-badge-danger {
-  background-color: #fef2f2;
-  color: #b91c1c;
-  border: 1px solid #fecaca;
+/* Draf / Draft */
+.status-badge--draf {
+  background-color: var(--status-draf-bg);
+  color: var(--status-draf-text);
 }
-.status-badge-danger .status-badge-dot {
-  background-color: #ef4444;
-}
-
-/* Info */
-.status-badge-info {
-  background-color: #eff6ff;
-  color: #1d4ed8;
-  border: 1px solid #bfdbfe;
-}
-.status-badge-info .status-badge-dot {
-  background-color: #3b82f6;
+.status-badge--draf .status-badge__dot {
+  background-color: var(--status-draf-dot);
 }
 
-/* Neutral */
-.status-badge-neutral {
-  background-color: #f1f5f9;
-  color: #475569;
-  border: 1px solid #e2e8f0;
+/* Menunggu */
+.status-badge--menunggu {
+  background-color: var(--status-menunggu-pembayaran-bg);
+  color: var(--status-menunggu-pembayaran-text);
 }
-.status-badge-neutral .status-badge-dot {
-  background-color: #94a3b8;
+.status-badge--menunggu .status-badge__dot {
+  background-color: var(--status-menunggu-pembayaran-dot);
+}
+
+/* Diarsipkan */
+.status-badge--diarsipkan {
+  background-color: var(--status-diarsipkan-bg);
+  color: var(--status-diarsipkan-text);
+}
+.status-badge--diarsipkan .status-badge__dot {
+  background-color: var(--status-diarsipkan-dot);
+}
+
+/* Selesai */
+.status-badge--selesai {
+  background-color: #E0E7FF;
+  color: #3730A3;
+}
+:root.dark .status-badge--selesai,
+[data-theme='dark'] .status-badge--selesai {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #C7D2FE;
+}
+.status-badge--selesai .status-badge__dot {
+  background-color: #6366F1;
+}
+
+/* Dibatalkan / Gagal */
+.status-badge--dibatalkan {
+  background-color: var(--status-dibatalkan-bg);
+  color: var(--status-dibatalkan-text);
+}
+.status-badge--dibatalkan .status-badge__dot {
+  background-color: var(--status-dibatalkan-dot);
+}
+
+/* Kedaluwarsa */
+.status-badge--kedaluwarsa {
+  background-color: var(--status-kedaluwarsa-bg);
+  color: var(--status-kedaluwarsa-text);
+}
+.status-badge--kedaluwarsa .status-badge__dot {
+  background-color: var(--status-kedaluwarsa-dot);
 }

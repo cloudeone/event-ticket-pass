@@ -3,44 +3,45 @@ import './Button.css';
 
 export default function Button({
   children,
-  variant = 'primary', // 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
-  size = 'md',         // 'sm' | 'md' | 'lg'
-  type = 'button',
-  disabled = false,
-  loading = false,
-  fullWidth = false,
+  variant = 'primary',
+  size = 'md',
   icon: Icon,
   iconPosition = 'left',
-  onClick,
+  loading = false,
+  disabled = false,
+  fullWidth = false,
   className = '',
+  type = 'button',
+  onClick,
   ...props
 }) {
-  const classes = [
+  const classNames = [
     'btn',
-    `btn-${variant}`,
-    `btn-${size}`,
-    fullWidth ? 'btn-full-width' : '',
-    loading ? 'btn-loading' : '',
+    `btn--${variant}`,
+    `btn--${size}`,
+    loading ? 'btn--loading' : '',
+    fullWidth ? 'btn--full' : '',
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <button
       type={type}
-      className={classes}
+      className={classNames}
       disabled={disabled || loading}
       onClick={onClick}
       {...props}
     >
-      {loading && (
-        <span className="btn-spinner" aria-hidden="true" />
-      )}
-      {!loading && Icon && iconPosition === 'left' && (
-        <Icon className="btn-icon btn-icon-left" size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} />
-      )}
-      <span className="btn-text">{children}</span>
-      {!loading && Icon && iconPosition === 'right' && (
-        <Icon className="btn-icon btn-icon-right" size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} />
+      {loading ? (
+        <span className="btn__spinner" aria-label="Loading..." />
+      ) : (
+        <>
+          {Icon && iconPosition === 'left' && <Icon size={size === 'sm' ? 14 : size === 'lg' ? 18 : 16} className="btn__icon" />}
+          {children && <span className="btn__text">{children}</span>}
+          {Icon && iconPosition === 'right' && <Icon size={size === 'sm' ? 14 : size === 'lg' ? 18 : 16} className="btn__icon" />}
+        </>
       )}
     </button>
   );

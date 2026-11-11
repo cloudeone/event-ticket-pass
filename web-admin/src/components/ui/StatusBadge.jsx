@@ -1,66 +1,66 @@
 import React from 'react';
 import './StatusBadge.css';
 
-export default function StatusBadge({ status, type = 'auto', className = '' }) {
-  if (!status) return null;
+const STATUS_MAP = {
+  // Active / Live
+  aktif: { label: 'Aktif', variant: 'aktif' },
+  live: { label: 'Live', variant: 'aktif' },
+  berhasil: { label: 'Berhasil', variant: 'aktif' },
+  dibayar: { label: 'Dibayar', variant: 'aktif' },
+  sukses: { label: 'Sukses', variant: 'aktif' },
+  valid: { label: 'Valid', variant: 'aktif' },
+  online: { label: 'Online', variant: 'aktif' },
 
-  const normalized = String(status).toUpperCase();
+  // Pending / Waiting
+  menunggu: { label: 'Menunggu', variant: 'menunggu' },
+  menunggu_pembayaran: { label: 'Menunggu Pembayaran', variant: 'menunggu' },
+  pending: { label: 'Pending', variant: 'menunggu' },
+  proses: { label: 'Diproses', variant: 'menunggu' },
 
-  let variant = 'default';
-  let label = normalized;
+  // Draft / Inactive
+  draft: { label: 'Draft', variant: 'draf' },
+  draf: { label: 'Draf', variant: 'draf' },
+  nonaktif: { label: 'Nonaktif', variant: 'draf' },
+  offline: { label: 'Offline', variant: 'draf' },
 
-  // Event statuses
-  if (normalized === 'AKTIF' || normalized === 'ACTIVE') {
-    variant = 'success';
-    label = 'Aktif';
-  } else if (normalized === 'DRAF' || normalized === 'DRAFT') {
-    variant = 'neutral';
-    label = 'Draf';
-  } else if (normalized === 'DIARSIPKAN' || normalized === 'ARCHIVED') {
-    variant = 'warning';
-    label = 'Diarsipkan';
-  }
+  // Archived / Used
+  diarsipkan: { label: 'Diarsipkan', variant: 'diarsipkan' },
+  sudah_dipakai: { label: 'Sudah Dipakai', variant: 'diarsipkan' },
+  selesai: { label: 'Selesai', variant: 'selesai' },
 
-  // Order statuses
-  else if (normalized === 'MENUNGGU_PEMBAYARAN' || normalized === 'WAITING_PAYMENT') {
-    variant = 'info';
-    label = 'Menunggu Pembayaran';
-  } else if (normalized === 'DIBAYAR' || normalized === 'PAID') {
-    variant = 'success';
-    label = 'Dibayar';
-  } else if (normalized === 'DIBATALKAN' || normalized === 'CANCELLED') {
-    variant = 'danger';
-    label = 'Dibatalkan';
-  } else if (normalized === 'KEDALUWARSA' || normalized === 'EXPIRED') {
-    variant = 'neutral';
-    label = 'Kedaluwarsa';
-  }
+  // Warning / Sold Out
+  sold_out: { label: 'Sold Out', variant: 'dibatalkan' },
+  refund: { label: 'Refund', variant: 'diarsipkan' },
 
-  // Ticket statuses & check-in
-  else if (normalized === 'VALID') {
-    variant = 'success';
-    label = 'Valid';
-  } else if (normalized === 'SUDAH_DIPAKAI' || normalized === 'USED') {
-    variant = 'warning';
-    label = 'Sudah Dipakai';
-  } else if (normalized === 'TIDAK_VALID') {
-    variant = 'danger';
-    label = 'Tidak Valid';
-  }
+  // Cancelled / Failed / Expired
+  dibatalkan: { label: 'Dibatalkan', variant: 'dibatalkan' },
+  gagal: { label: 'Gagal', variant: 'dibatalkan' },
+  tidak_valid: { label: 'Tidak Valid', variant: 'dibatalkan' },
+  kedaluwarsa: { label: 'Kedaluwarsa', variant: 'kedaluwarsa' },
+};
 
-  // Generic boolean active/inactive
-  else if (status === true || normalized === 'TRUE') {
-    variant = 'success';
-    label = 'Aktif';
-  } else if (status === false || normalized === 'FALSE') {
-    variant = 'neutral';
-    label = 'Nonaktif';
-  }
+export default function StatusBadge({
+  status,
+  label,
+  size = 'md',
+  dot = true,
+  className = '',
+}) {
+  const normalized = (status || '').toString().toLowerCase().trim().replace(/\s+/g, '_');
+  const config = STATUS_MAP[normalized] || {
+    label: status || 'Unknown',
+    variant: 'draf',
+  };
+
+  const displayLabel = label || config.label;
+  const variant = config.variant;
 
   return (
-    <span className={`status-badge status-badge-${variant} ${className}`}>
-      <span className="status-badge-dot" />
-      <span className="status-badge-text">{label}</span>
+    <span
+      className={`status-badge status-badge--${variant} status-badge--${size} ${className}`}
+    >
+      {dot && <span className="status-badge__dot" />}
+      <span className="status-badge__text">{displayLabel}</span>
     </span>
   );
 }

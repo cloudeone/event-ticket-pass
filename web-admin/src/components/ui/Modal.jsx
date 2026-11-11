@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
-import Button from './Button';
 import './Modal.css';
 
 export default function Modal({
-  isOpen,
+  isOpen = false,
   onClose,
   title,
+  description,
   subtitle,
   children,
   footer,
-  size = 'md', // 'sm' | 'md' | 'lg'
+  size = 'md',
+  className = '',
 }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape' && isOpen && onClose) {
         onClose();
       }
     };
@@ -31,24 +32,30 @@ export default function Modal({
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
+    <div className="modal-overlay" onClick={onClose}>
       <div
-        className={`modal-dialog modal-${size}`}
+        className={`modal-dialog modal-dialog--${size} ${className}`}
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
       >
         <div className="modal-header">
           <div>
-            <h3 className="modal-title">{title}</h3>
-            {subtitle && <p className="modal-subtitle">{subtitle}</p>}
+            {title && <h3 className="modal-title">{title}</h3>}
+            {(subtitle || description) && (
+              <p className="modal-description">{subtitle || description}</p>
+            )}
           </div>
-          <button
-            type="button"
-            className="modal-close-btn"
-            onClick={onClose}
-            aria-label="Tutup modal"
-          >
-            <X size={18} />
-          </button>
+          {onClose && (
+            <button
+              type="button"
+              className="modal-close-btn"
+              onClick={onClose}
+              aria-label="Tutup modal"
+            >
+              <X size={18} />
+            </button>
+          )}
         </div>
 
         <div className="modal-body">{children}</div>
