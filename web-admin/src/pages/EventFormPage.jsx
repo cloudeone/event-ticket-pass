@@ -73,15 +73,35 @@ export default function EventFormPage() {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+      const token = localStorage.getItem('token');
+
+      const response = await fetch(`${apiUrl}/events`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token ? `Bearer ${token}` : '',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.message || 'Gagal menyimpan event ke server.');
+      }
+
       navigate('/events');
-    }, 400);
+    } catch (err) {
+      alert(err.message || 'Terjadi kesalahan pada koneksi server.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
