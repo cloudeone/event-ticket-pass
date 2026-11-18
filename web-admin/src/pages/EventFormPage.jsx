@@ -60,7 +60,6 @@ export default function EventFormPage() {
     if (!formData.tanggal_mulai) errs.tanggal_mulai = 'Waktu mulai acara wajib diisi.';
     if (!formData.tanggal_selesai) errs.tanggal_selesai = 'Waktu selesai acara wajib diisi.';
 
-    // BR-EVT-002: end_date must be after start_date
     if (formData.tanggal_mulai && formData.tanggal_selesai) {
       const start = new Date(formData.tanggal_mulai);
       const end = new Date(formData.tanggal_selesai);
@@ -80,7 +79,13 @@ export default function EventFormPage() {
     setLoading(true);
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-      const token = localStorage.getItem('token');
+
+      // Mengecek berbagai kemungkinan nama key token di localStorage
+      const token =
+        localStorage.getItem('token') ||
+        localStorage.getItem('admin_token') ||
+        localStorage.getItem('accessToken') ||
+        localStorage.getItem('access_token');
 
       const response = await fetch(`${apiUrl}/events`, {
         method: 'POST',
@@ -123,7 +128,6 @@ export default function EventFormPage() {
 
       <form onSubmit={handleSubmit}>
         <div className="form-grid">
-          {/* Main Info */}
           <Card className="form-section-card">
             <CardHeader title="Informasi Utama Acara" />
             <CardContent>
@@ -165,7 +169,6 @@ export default function EventFormPage() {
             </CardContent>
           </Card>
 
-          {/* Schedule & Location */}
           <Card className="form-section-card">
             <CardHeader title="Jadwal & Lokasi" />
             <CardContent>
